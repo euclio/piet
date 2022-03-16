@@ -25,6 +25,7 @@
 //! [piet-cairo]: https://crates.io/crates/piet-cairo
 
 #![deny(clippy::trivially_copy_pass_by_ref)]
+#![deny(missing_debug_implementations)]
 
 pub use piet::*;
 

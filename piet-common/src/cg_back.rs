@@ -3,6 +3,7 @@
 
 //! Support for piet CoreGraphics back-end.
 
+use std::fmt;
 use std::marker::PhantomData;
 use std::path::Path;
 #[cfg(feature = "png")]
@@ -45,6 +46,7 @@ pub type PietTextLayoutBuilder = CoreGraphicsTextLayoutBuilder;
 pub type PietImage = CoreGraphicsImage;
 
 /// A struct that can be used to create bitmap render contexts.
+#[derive(Debug)]
 pub struct Device {
     // Since not all backends can support `Device: Sync`, make it non-Sync here to, for fewer
     // portability surprises.
@@ -58,6 +60,16 @@ pub struct BitmapTarget<'a> {
     ctx: CGContext,
     height: f64,
     phantom: PhantomData<&'a ()>,
+}
+
+impl<'a> fmt::Debug for BitmapTarget<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        f.debug_struct("BitmapTarget")
+            .field("ctx", &format_args!("CGContext"))
+            .field("height", &self.height)
+            .field("phantom", &self.phantom)
+            .finish()
+    }
 }
 
 impl Device {

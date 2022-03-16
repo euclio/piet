@@ -48,6 +48,7 @@ pub type PietImage = CairoImage;
 /// A struct that can be used to create bitmap render contexts.
 ///
 /// In the case of Cairo, being a software renderer, no state is needed.
+#[derive(Debug)]
 pub struct Device {
     // Since not all backends can support `Device: Sync`, make it non-Sync here to, for fewer
     // portability surprises.
@@ -57,6 +58,7 @@ pub struct Device {
 unsafe impl Send for Device {}
 
 /// A struct provides a `RenderContext` and then can have its bitmap extracted.
+#[derive(Debug)]
 pub struct BitmapTarget<'a> {
     surface: ImageSurface,
     cr: Context,
